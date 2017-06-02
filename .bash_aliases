@@ -8,4 +8,5 @@ case $OSTYPE in
   ;;
 esac
 
-alias l=ls
+alias ll="ls -lA"
+alias l="ll "
