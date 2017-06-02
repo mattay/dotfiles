@@ -1,12 +1,18 @@
 # Add color to ls based on OS type
 case $OSTYPE in
   darwin* )
-    alias ls="ls -G"
+    export LS_OPTIONS='-G'
   ;;
   linux-gnu )
-    alias ls="ls --color=always"
+    export LS_OPTIONS='--color=auto'
   ;;
 esac
 
-alias ll="ls -lA"
-alias l="ll "
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias  l='ls $LS_OPTIONS -lA'
+
+# Some more alias to avoid making mistakes:
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
