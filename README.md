@@ -1,2 +1,2 @@
 # dotfiles
-A collection of dote files
+A collection of dot files
