@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO Update docs
+
 # To set up centrally managed common $HOME dotfiles in Subversion...
 # 1a) Create a directory ~/dotfiles or similar
 # 1b) Copy desired common files to ~/dotfiles
@@ -14,32 +16,15 @@
 
 
 
-
-# OS specific stuff:
-#case $OSTYPE in
-#  darwin*)
-#	# OSX
-#	find $PWD -maxdepth 1 -name ".*" ! -name ".svn" ! -name "." -print \
-#	| xargs -0 -I {} basename {} \
-#	| xargs -I {}  bash -c \
-#    "if [[ ! -L $HOME/'{}' ]]; then  mv -v $HOME/'{}' $HOME/'{}'.old; ln -vs `pwd`/'{}'  $HOME/'{}'; fi"
-#	;;
-#
-#  linux*)
-#	find . -maxdepth 1 -name ".*" ! -name ".svn" ! -name "." -printf %f\\n \
-#	|xargs -I {} -i bash -c \
-#	"if [[ ! -L $HOME/'{}' ]]; then  mv -v $HOME/'{}' $HOME/'{}'.old; ln -vs `pwd`/'{}'  $HOME/'{}'; fi"
-#	;;
-#esac
-
 IGNORELIST=".git .DS_Store .happypack";
 
+# @pram1 = list
+# @pram2 = item
 function list_contains_item() {
   local list="$1"
   local item="$2"
-  # echo $list $item
+  # Pattern match 'item' in 'list'
   if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then
-    # yes, list include item
     result=0
   else
     result=1
@@ -48,11 +33,12 @@ function list_contains_item() {
 }
 
 
-#find all dot files in ~/dotfiles
+# Find all dot files in ~/dotfiles
 function updateLinks() {
   list_dotfiles=`find . -maxdepth 1 -name ".?*"`
   for dotfile in $list_dotfiles; do
       dotfile=`basename $dotfile`
+      # Ignore linking certain files
       if ! `list_contains_item "$IGNORELIST" "$dotfile"` && [[ ! -L $HOME/$dotfile ]]; then
           # make copy of original dot file
           if [[ -f $HOME/$dotfile ]]; then
