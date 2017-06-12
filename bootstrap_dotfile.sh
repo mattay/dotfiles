@@ -32,7 +32,7 @@
 #	;;
 #esac
 
-IGNORELIST=".eggs .DS_Store .happypack";
+IGNORELIST=".git .DS_Store .happypack";
 
 function list_contains_item() {
   local list="$1"
